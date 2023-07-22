@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "build": "rm -rf ./dist && mkdir ./dist && npx rollup -p @rollup/plugin-node-resolve index.js > ./dist/bundle.js"
+  },
+  "dependencies": {
+    "@lit/reactive-element": "^1.0.0",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "lit": "^2.0.0",
+    "lit-element": "^3.0.0",
+    "lit-html": "^2.0.0",
+    "rollup": "^3.26.3"
+  }
+}
