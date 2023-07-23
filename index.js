@@ -5,6 +5,8 @@ export class EmojiReaction extends LitElement {
     showAvailable: {},
     availableArrayString: {},
     availableReactions: { attribute: false },
+    endpoint: {},
+    reactTargetId: {},
   };
   // Define scoped styles right with your component, in plain CSS
   static styles = css`
@@ -29,6 +31,11 @@ export class EmojiReaction extends LitElement {
     super();
     // Declare reactive properties
     this.showAvailable = false
+    this.availableReactions = []
+    this.initReactions()
+  }
+
+  async initReactions() {
     let arr_string = this?.availableArrayString
     if (!arr_string) {
       arr_string = '🎇,sparkler;🎉,party-popper;🎊,confetti-ball'
@@ -37,19 +44,27 @@ export class EmojiReaction extends LitElement {
       const [emoji, name] = val.split(',')
       return { emoji, name }
     })
-    // TODO: 请求接口，获取哪些 emoji 有 reaction 数量
-    const reactionsGot = [
-      {
-        emoji: '🎉',
-        name: 'party-popper',
-        count: 10086,
-      },
-      {
-        emoji: '🎊',
-        name: 'confetti-ball',
-        count: 666,
+    // 初始化 endpoint
+    if (!this?.endpoint) {
+      this.endpoint = 'https://api.emaction.cool'
+    }
+    // 请求接口，获取哪些 emoji 有 reaction 数量
+    const url_without_hash = window.location.origin + window.location.pathname + window.location.search
+    if (!this?.reactTargetId) {
+      this.reactTargetId = await this._sha256(url_without_hash)
+    }
+    const { data: { reactionsGot } } = await fetch(this.endpoint + '/reactions?' + new URLSearchParams({
+      targetId: this.reactTargetId,
+    }), {
+      method: 'GET',
+    })
+    .then(resp => resp.json())
+    .then(resp => {
+      if (!resp?.data || !Array.isArray(resp?.data?.reactionsGot)) {
+        throw new Error("获取 reactions 出错！")
       }
-    ]
+      return resp;
+    })
     // 获得的 reactions 数量放到 arr 里
     reactionsGot.forEach(reaction => {
       arr.forEach(availableReaction => {
@@ -58,17 +73,13 @@ export class EmojiReaction extends LitElement {
         }
       });
     });
-    // TODO: 读取 cookie，获取当前用户点击过的 emoji
-    const meReactedReactions = [
-      {
-        emoji: '🎉',
-        name: 'party-popper',
-      },
-    ]
+    // 读取 localStorage，获取当前用户点击过的 emoji
+    const storageKey = `meReactedReactions_${this.reactTargetId}`
+    const meReactedReactions = JSON.parse(window.localStorage.getItem(storageKey) || "[]")
     // 当前用户点击状态放到 arr
-    meReactedReactions.forEach(reactedReaction => {
+    meReactedReactions.forEach(reaction_name => {
       arr.forEach(availableReaction => {
-        if (reactedReaction.name === availableReaction.name) {
+        if (reaction_name === availableReaction.name) {
           availableReaction.meReacted = true
         }
       })
@@ -106,9 +117,9 @@ export class EmojiReaction extends LitElement {
     </div>
     `;
   }
-  _react(e) {
-    const { name } = e.target.dataset
-    const reaction = this.availableReactions.find(ele => ele.name === name)
+  async _react(e) {
+    const { name: reaction_name } = e.target.dataset
+    const reaction = this.availableReactions.find(ele => ele.name === reaction_name)
     if (!reaction) {
       console.error("未知的 reaction!")
       return
@@ -117,19 +128,38 @@ export class EmojiReaction extends LitElement {
     const count = Math.max(0, reaction?.count ? reaction.count + (cancel ? -1 : 1) : (cancel ? 0 : 1))
     const meReacted = !reaction.meReacted
     this.availableReactions = this.availableReactions.map(val => {
-      if (val.name === name) {
+      if (val.name === reaction_name) {
         val.count = count
-        val.meReacted = !val.meReacted
+        val.meReacted = meReacted
       }
       return val
     })
     this.showAvailable = false
     // 请求接口，更新 react 数量
-    // 更新 cookie
+    await fetch(this.endpoint + '/reaction/update?' + new URLSearchParams({
+      targetId: this.reactTargetId,
+      reaction_name,
+      diff: cancel ? -1 : 1
+    }), { method: "PATCH"})
+    // 更新 localStorage
+    const storageKey = `meReactedReactions_${this.reactTargetId}`
+    const meReactedReactionsSet = new Set(JSON.parse(window.localStorage.getItem(storageKey) || "[]"))
+    if (cancel) {
+      meReactedReactionsSet.delete(reaction_name)
+    } else {
+      meReactedReactionsSet.add(reaction_name)
+    }
+    window.localStorage.setItem(storageKey, JSON.stringify(Array.from(meReactedReactionsSet)))
   }
   _showAvailable(e) {
     e.preventDefault()
     this.showAvailable = !this.showAvailable
+  }
+  async _sha256(string) {
+    return Array.from(new Uint8Array(
+      await crypto.subtle.digest('sha-256', new TextEncoder().encode(string))
+    ))
+      .map(b => b.toString(16).padStart(2, "0")).join("")
   }
 }
 customElements.define('emoji-reaction', EmojiReaction);
