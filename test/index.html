@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +7,35 @@
 
   <script type="module" src="../dist/bundle.js"></script>
   <title>Lit code sample</title>
+  <style>
+    .reactions {
+      --start-smile-border-color: #d0d7de;
+      --start-smile-border-color-hover: #bbb;
+      --start-smile-bg-color: #f6f8fa;
+      --start-smile-svg-fill-color: #656d76;
+      --reaction-got-not-reacted-bg-color: #fff;
+      --reaction-got-not-reacted-bg-color-hover: #eaeef2;
+      --reaction-got-not-reacted-border-color: #d0d7de;
+      --reaction-got-not-reacted-text-color: #656d76;
+      --reaction-got-reacted-bg-color: #ddf4ff;
+      --reaction-got-reacted-bg-color-hover: #b6e3ff;
+      --reaction-got-reacted-border-color: #0969da;
+      --reaction-got-reacted-text-color: #0969da;
+      --reaction-available-popup-bg-color: #fff;
+      --reaction-available-popup-border-color: #d0d7de;
+      --reaction-available-popup-box-shadow: #8c959f33 0px 8px 24px 0px;
+      --reaction-available-emoji-reacted-bg-color: #ddf4ff;
+      --reaction-available-emoji-bg-color-hover: #f3f4f6;
+      --reaction-available-emoji-z-index: 100;
+      --reaction-available-mask-z-index: 80;
+    }
+  </style>
 </head>
 <body>
   <h1>Title</h1>
   <h2>Subtitle</h2>
   <p>Paragraph</p>
-  <emoji-reaction endpoint="http://localhost:3001"></emoji-reaction>
+  <emoji-reaction class="reactions" reactTargetId="fakeid" endpoint="http://localhost:3001" availableArrayString="👍,thumbs-up;😄,smile-face;🎉,party-popper;😕,confused-face;❤️,red-heart;🚀,rocket;👀,eyes;"></emoji-reaction>
   <p>Another paragraph</p>
   <footer>Footer</footer>
 </body>
