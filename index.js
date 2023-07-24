@@ -141,8 +141,11 @@ export class EmojiReaction extends LitElement {
     }
     const arr = arr_string.split(';').map(val => {
       const [emoji, name] = val.split(',')
+      if (!emoji || !name) {
+        return null
+      }
       return { emoji, name }
-    })
+    }).filter(val => val)
     // 初始化 endpoint
     if (!this?.endpoint) {
       this.endpoint = 'https://api.emaction.cool'
