@@ -3,10 +3,14 @@
 ## Get Started
 
 ### Via CDN (Recommended)
-`<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/dist@1.0.0/bundle.min.js"></script>`
+```
+<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/dist@1.0.0/bundle.min.js"></script>
+```
 
 ### NPM
-`npm install emaction`
+```
+npm install emaction
+```
 
 ## TODO
 
