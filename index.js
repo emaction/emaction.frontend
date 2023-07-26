@@ -7,9 +7,52 @@ export class EmojiReaction extends LitElement {
     availableArrayString: {},
     endpoint: {},
     reactTargetId: {},
+    theme: {},
   };
   // Define scoped styles right with your component, in plain CSS
   static styles = css`
+    .container {
+      --start-smile-border-color: #d0d7de;
+      --start-smile-border-color-hover: #bbb;
+      --start-smile-bg-color: #f6f8fa;
+      --start-smile-svg-fill-color: #656d76;
+      --reaction-got-not-reacted-bg-color: #fff;
+      --reaction-got-not-reacted-bg-color-hover: #eaeef2;
+      --reaction-got-not-reacted-border-color: #d0d7de;
+      --reaction-got-not-reacted-text-color: #656d76;
+      --reaction-got-reacted-bg-color: #ddf4ff;
+      --reaction-got-reacted-bg-color-hover: #b6e3ff;
+      --reaction-got-reacted-border-color: #0969da;
+      --reaction-got-reacted-text-color: #0969da;
+      --reaction-available-popup-bg-color: #fff;
+      --reaction-available-popup-border-color: #d0d7de;
+      --reaction-available-popup-box-shadow: #8c959f33 0px 8px 24px 0px;
+      --reaction-available-emoji-reacted-bg-color: #ddf4ff;
+      --reaction-available-emoji-bg-color-hover: #f3f4f6;
+      --reaction-available-emoji-z-index: 100;
+      --reaction-available-mask-z-index: 80;
+    }
+    .container-dark {
+      --start-smile-border-color: #d0d7de;
+      --start-smile-border-color-hover: #bbb;
+      --start-smile-bg-color: #f6f8fa;
+      --start-smile-svg-fill-color: #656d76;
+      --reaction-got-not-reacted-bg-color: #fff;
+      --reaction-got-not-reacted-bg-color-hover: #eaeef2;
+      --reaction-got-not-reacted-border-color: #d0d7de;
+      --reaction-got-not-reacted-text-color: #656d76;
+      --reaction-got-reacted-bg-color: #ddf4ff;
+      --reaction-got-reacted-bg-color-hover: #b6e3ff;
+      --reaction-got-reacted-border-color: #0969da;
+      --reaction-got-reacted-text-color: #0969da;
+      --reaction-available-popup-bg-color: #fff;
+      --reaction-available-popup-border-color: #d0d7de;
+      --reaction-available-popup-box-shadow: #8c959f33 0px 8px 24px 0px;
+      --reaction-available-emoji-reacted-bg-color: #ddf4ff;
+      --reaction-available-emoji-bg-color-hover: #f3f4f6;
+      --reaction-available-emoji-z-index: 100;
+      --reaction-available-mask-z-index: 80;
+    }
     .anim-scale-in {
       animation-name: scale-in;
       animation-duration: .15s;
@@ -30,6 +73,7 @@ export class EmojiReaction extends LitElement {
 
   // Render the UI as a function of component state
   render() {
+    const system_theme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"
     return html`
     <style>
       #start-smile {
@@ -94,7 +138,7 @@ export class EmojiReaction extends LitElement {
       }
     </style>
     <!-- container -->
-    <div style="display: flex; gap: 0.375rem;">
+    <div style="display: flex; gap: 0.375rem;" class="${this?.theme === 'dark' || (this?.theme === 'system' && system_theme === 'dark') ? 'container-dark' : 'container'}">
       <!-- 灰色笑脸 -->
       <div style="position: relative; list-style: none; user-select: none;">
         <div id="start-smile" @click="${this._showAvailable}"
@@ -108,13 +152,13 @@ export class EmojiReaction extends LitElement {
         <div class="anim-scale-in reaction-available-popup" @click=${this._closePopup} style="display: ${this.showAvailable ? 'flex' : 'none'}; user-select: none; position: absolute; top: -3rem; font-size: 0.875rem; border-radius: 0.375rem; padding: 0 0.125rem;">
           <!-- reactions available -->
           ${this.availableReactions.map(item => html`
-            <span @click=${this._react} data-name="${item.name}" class="reaction-available-emoji ${item.meReacted ? 'reaction-available-emoji-reacted' : ''}" style="cursor: pointer; margin: 0.25rem 0.125rem; padding: 0.25rem; border-radius: 0.375rem;">${item.emoji}</span>
+            <span @click=${this._react} data-name="${item.reaction_name}" class="reaction-available-emoji ${item.meReacted ? 'reaction-available-emoji-reacted' : ''}" style="cursor: pointer; margin: 0.25rem 0.125rem; padding: 0.25rem; border-radius: 0.375rem;">${item.emoji}</span>
           `)}
         </div>
       </div>
       <!-- reactions got -->
       ${this.availableReactions.map(item => html`
-        <div @click=${this._react} data-name="${item.name}" class="${item.meReacted ? 'reaction-got-reacted' : 'reaction-got-not-reacted'}" style="display: ${item?.count && item.count > 0 ? 'flex' : 'none'}; user-select: none; cursor: pointer; justify-content: center; align-items: center; border-radius: 108px; padding: 0 0.25rem; font-size: 12px;">
+        <div @click=${this._react} data-name="${item.reaction_name}" class="${item.meReacted ? 'reaction-got-reacted' : 'reaction-got-not-reacted'}" style="display: ${item?.count && item.count > 0 ? 'flex' : 'none'}; user-select: none; cursor: pointer; justify-content: center; align-items: center; border-radius: 108px; padding: 0 0.25rem; font-size: 12px;">
           <span style="pointer-events: none;">${item.emoji}</span><span style="padding:0 0.375rem; pointer-events: none;">${item.count}</span>
         </div>
       `)}
@@ -140,11 +184,11 @@ export class EmojiReaction extends LitElement {
       arr_string = '👍,thumbs-up;👎,thumbs-down;😄,smile-face;🎉,party-popper;😕,confused-face;❤️,red-heart;🚀,rocket;👀,eyes;'
     }
     const arr = arr_string.split(';').map(val => {
-      const [emoji, name] = val.split(',')
-      if (!emoji || !name) {
+      const [emoji, reaction_name] = val.split(',')
+      if (!emoji || !reaction_name) {
         return null
       }
-      return { emoji, name }
+      return { emoji, reaction_name }
     }).filter(val => val)
     // 初始化 endpoint
     if (!this?.endpoint) {
@@ -174,7 +218,7 @@ export class EmojiReaction extends LitElement {
     // 获得的 reactions 数量放到 arr 里
     reactionsGot.forEach(reaction => {
       arr.forEach(availableReaction => {
-        if (reaction.name === availableReaction.name) {
+        if (reaction.reaction_name === availableReaction.reaction_name) {
           availableReaction.count = reaction.count
         }
       });
@@ -185,7 +229,7 @@ export class EmojiReaction extends LitElement {
     // 当前用户点击状态放到 arr
     meReactedReactions.forEach(reaction_name => {
       arr.forEach(availableReaction => {
-        if (reaction_name === availableReaction.name) {
+        if (reaction_name === availableReaction.reaction_name) {
           availableReaction.meReacted = true
         }
       })
@@ -201,7 +245,7 @@ export class EmojiReaction extends LitElement {
 
   async _react(e) {
     const { name: reaction_name } = e.target.dataset
-    const reaction = this.availableReactions.find(ele => ele.name === reaction_name)
+    const reaction = this.availableReactions.find(ele => ele.reaction_name === reaction_name)
     if (!reaction) {
       console.error("未知的 reaction!")
       return
@@ -210,7 +254,7 @@ export class EmojiReaction extends LitElement {
     const count = Math.max(0, reaction?.count ? reaction.count + (cancel ? -1 : 1) : (cancel ? 0 : 1))
     const meReacted = !reaction.meReacted
     this.availableReactions = this.availableReactions.map(val => {
-      if (val.name === reaction_name) {
+      if (val.reaction_name === reaction_name) {
         val.count = count
         val.meReacted = meReacted
       }
@@ -218,7 +262,7 @@ export class EmojiReaction extends LitElement {
     })
     this.showAvailable = false
     // 请求接口，更新 react 数量
-    await fetch(this.endpoint + '/reaction/update?' + new URLSearchParams({
+    await fetch(this.endpoint + '/reaction?' + new URLSearchParams({
       targetId: this.reactTargetId,
       reaction_name,
       diff: cancel ? -1 : 1
