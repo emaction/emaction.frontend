@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="canonical" href="http://localhost:3000/test" />
 
   <script type="module" src="../dist/bundle.js"></script>
   <title>Lit code sample</title>
   <style>
-    /* .reactions {
+    .reactions {
       --start-smile-border-color: #d0d7de;
       --start-smile-border-color-hover: #bbb;
       --start-smile-bg-color: #f6f8fa;
@@ -28,7 +29,7 @@
       --reaction-available-emoji-bg-color-hover: #f3f4f6;
       --reaction-available-emoji-z-index: 100;
       --reaction-available-mask-z-index: 80;
-    } */
+    }
     /* body {
       background-color: #0d1117;
       color: #656d76;
@@ -39,7 +40,8 @@
   <h1>Title</h1>
   <h2>Subtitle</h2>
   <p>Paragraph</p>
-  <emoji-reaction class="reactions" theme="light" endpoint="https://api-emaction.bigfansof.workers.dev" availableArrayString="👍,thumbs-up;😄,smile-face;🎉,party-popper;😕,confused-face;❤️,red-heart;🚀,rocket;👀,eyes;"></emoji-reaction>
+  <emoji-reaction class="reactions" reactTargetId="fakeid" theme="light" endpoint="https://api-emaction.bigfansof.workers.dev" availableArrayString="👍,thumbs-up;😄,smile-face;🎉,party-popper;😕,confused-face;❤️,red-heart;🚀,rocket;👀,eyes;"></emoji-reaction>
+  <!-- <emoji-reaction></emoji-reaction> -->
   <p>Another paragraph</p>
   <footer>Footer</footer>
 </body>

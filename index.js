@@ -15,47 +15,47 @@ export class EmojiReaction extends LitElement {
   static styles = css`
     /* default light */
     .container {
-      --start-smile-border-color: #d0d7de;
-      --start-smile-border-color-hover: #1f232826;
-      --start-smile-bg-color: #f6f8fa;
-      --start-smile-svg-fill-color: #656d76;
-      --reaction-got-not-reacted-bg-color: #fff;
-      --reaction-got-not-reacted-bg-color-hover: #eaeef2;
-      --reaction-got-not-reacted-border-color: #d0d7de;
-      --reaction-got-not-reacted-text-color: #656d76;
-      --reaction-got-reacted-bg-color: #ddf4ff;
-      --reaction-got-reacted-bg-color-hover: #b6e3ff;
-      --reaction-got-reacted-border-color: #0969da;
-      --reaction-got-reacted-text-color: #0969da;
-      --reaction-available-popup-bg-color: #fff;
-      --reaction-available-popup-border-color: #d0d7de;
-      --reaction-available-popup-box-shadow: #8c959f33 0px 8px 24px 0px;
-      --reaction-available-emoji-reacted-bg-color: #ddf4ff;
-      --reaction-available-emoji-bg-color-hover: #f3f4f6;
-      --reaction-available-emoji-z-index: 100;
-      --reaction-available-mask-z-index: 80;
+      --start-smile-border-color-default: #d0d7de;
+      --start-smile-border-color-hover-default: #1f232826;
+      --start-smile-bg-color-default: #f6f8fa;
+      --start-smile-svg-fill-color-default: #656d76;
+      --reaction-got-not-reacted-bg-color-default: #fff;
+      --reaction-got-not-reacted-bg-color-hover-default: #eaeef2;
+      --reaction-got-not-reacted-border-color-default: #d0d7de;
+      --reaction-got-not-reacted-text-color-default: #656d76;
+      --reaction-got-reacted-bg-color-default: #ddf4ff;
+      --reaction-got-reacted-bg-color-hover-default: #b6e3ff;
+      --reaction-got-reacted-border-color-default: #0969da;
+      --reaction-got-reacted-text-color-default: #0969da;
+      --reaction-available-popup-bg-color-default: #fff;
+      --reaction-available-popup-border-color-default: #d0d7de;
+      --reaction-available-popup-box-shadow-default: #8c959f33 0px 8px 24px 0px;
+      --reaction-available-emoji-reacted-bg-color-default: #ddf4ff;
+      --reaction-available-emoji-bg-color-hover-default: #f3f4f6;
+      --reaction-available-emoji-z-index-default: 100;
+      --reaction-available-mask-z-index-default: 80;
     }
     /* default dark */
     .container-dark {
-      --start-smile-border-color: #21262d;
-      --start-smile-border-color-hover: #8b949e;
-      --start-smile-bg-color: #30363d;
-      --start-smile-svg-fill-color: #7d8590;
-      --reaction-got-not-reacted-bg-color: #00000000;
-      --reaction-got-not-reacted-bg-color-hover: #21262d;
-      --reaction-got-not-reacted-border-color: #30363d;
-      --reaction-got-not-reacted-text-color: #7d8590;
-      --reaction-got-reacted-bg-color: #388bfd1a;
-      --reaction-got-reacted-bg-color-hover: #0c2d6b;
-      --reaction-got-reacted-border-color: #1f6feb;
-      --reaction-got-reacted-text-color: #2f81f7;
-      --reaction-available-popup-bg-color: #161b22;
-      --reaction-available-popup-border-color: #30363d;
-      --reaction-available-popup-box-shadow: #010409 0px 8px 24px 0px;
-      --reaction-available-emoji-reacted-bg-color: #388bfd1a;
-      --reaction-available-emoji-bg-color-hover: #30363d;
-      --reaction-available-emoji-z-index: 100;
-      --reaction-available-mask-z-index: 80;
+      --start-smile-border-color-default: #21262d;
+      --start-smile-border-color-hover-default: #8b949e;
+      --start-smile-bg-color-default: #30363d;
+      --start-smile-svg-fill-color-default: #7d8590;
+      --reaction-got-not-reacted-bg-color-default: #00000000;
+      --reaction-got-not-reacted-bg-color-hover-default: #21262d;
+      --reaction-got-not-reacted-border-color-default: #30363d;
+      --reaction-got-not-reacted-text-color-default: #7d8590;
+      --reaction-got-reacted-bg-color-default: #388bfd1a;
+      --reaction-got-reacted-bg-color-hover-default: #0c2d6b;
+      --reaction-got-reacted-border-color-default: #1f6feb;
+      --reaction-got-reacted-text-color-default: #2f81f7;
+      --reaction-available-popup-bg-color-default: #161b22;
+      --reaction-available-popup-border-color-default: #30363d;
+      --reaction-available-popup-box-shadow-default: #010409 0px 8px 24px 0px;
+      --reaction-available-emoji-reacted-bg-color-default: #388bfd1a;
+      --reaction-available-emoji-bg-color-hover-default: #30363d;
+      --reaction-available-emoji-z-index-default: 100;
+      --reaction-available-mask-z-index-default: 80;
     }
     .anim-scale-in {
       animation-name: scale-in;
@@ -83,50 +83,50 @@ export class EmojiReaction extends LitElement {
       #start-smile {
         border-width: 1px;
         border-style: solid;
-        border-color: var(--start-smile-border-color);
-        background-color: var(--start-smile-bg-color);
+        border-color: var(--start-smile-border-color, --start-smile-border-color-default);
+        background-color: var(--start-smile-bg-color, --start-smile-bg-color-default);
       }
       #start-smile:hover {
-        border-color: var(--start-smile-border-color-hover) !important;
+        border-color: var(--start-smile-border-color-hover, --start-smile-border-color-hover-default) !important;
       }
       #start-smile-svg {
-        fill: var(--start-smile-svg-fill-color);
+        fill: var(--start-smile-svg-fill-color, --start-smile-svg-fill-color-default);
       }
       .reaction-got-not-reacted {
-        background-color: var(--reaction-got-not-reacted-bg-color);
+        background-color: var(--reaction-got-not-reacted-bg-color, --reaction-got-not-reacted-bg-color-default);
         border-width: 1px;
         border-style: solid;
-        border-color: var(--reaction-got-not-reacted-border-color);
-        color: var(--reaction-got-not-reacted-text-color);
+        border-color: var(--reaction-got-not-reacted-border-color, --reaction-got-not-reacted-border-color-default);
+        color: var(--reaction-got-not-reacted-text-color, --reaction-got-not-reacted-text-color-default);
       }
       .reaction-got-not-reacted:hover {
-        background-color: var(--reaction-got-not-reacted-bg-color-hover);
+        background-color: var(--reaction-got-not-reacted-bg-color-hover, --reaction-got-not-reacted-bg-color-hover-default);
       }
       .reaction-got-reacted {
-        background-color: var(--reaction-got-reacted-bg-color);
+        background-color: var(--reaction-got-reacted-bg-color, --reaction-got-reacted-bg-color-default);
         border-width: 1px;
         border-style: solid;
-        border-color: var(--reaction-got-reacted-border-color);
-        color: var(--reaction-got-reacted-text-color);
+        border-color: var(--reaction-got-reacted-border-color, --reaction-got-reacted-border-color-default);
+        color: var(--reaction-got-reacted-text-color, --reaction-got-reacted-text-color-default);
       }
       .reaction-got-reacted:hover {
-        background-color: var(--reaction-got-reacted-bg-color-hover);
+        background-color: var(--reaction-got-reacted-bg-color-hover, --reaction-got-reacted-bg-color-hover-default);
       }
       .reaction-available-popup {
-        background-color: var(--reaction-available-popup-bg-color);
+        background-color: var(--reaction-available-popup-bg-color, --reaction-available-popup-bg-color-default);
         border-width: 1px;
         border-style: solid;
-        border-color: var(--reaction-available-popup-border-color);
-        box-shadow: var(--reaction-available-popup-box-shadow);
+        border-color: var(--reaction-available-popup-border-color, --reaction-available-popup-border-color-default);
+        box-shadow: var(--reaction-available-popup-box-shadow, --reaction-available-popup-box-shadow-default);
       }
       .reaction-available-emoji {
-        z-index: var(--reaction-available-emoji-z-index);
+        z-index: var(--reaction-available-emoji-z-index, --reaction-available-emoji-z-index-default);
       }
       .reaction-available-emoji:hover {
-        background-color: var(--reaction-available-emoji-bg-color-hover);
+        background-color: var(--reaction-available-emoji-bg-color-hover, --reaction-available-emoji-bg-color-hover-default);
       }
       .reaction-available-emoji-reacted {
-        background-color: var(--reaction-available-emoji-reacted-bg-color);
+        background-color: var(--reaction-available-emoji-reacted-bg-color, --reaction-available-emoji-reacted-bg-color-default);
       }
       .reaction-available-popup::before {
         position: fixed;
@@ -134,7 +134,7 @@ export class EmojiReaction extends LitElement {
         right: 0;
         bottom: 0;
         left: 0;
-        z-index: var(--reaction-available-mask-z-index);
+        z-index: var(--reaction-available-mask-z-index, --reaction-available-mask-z-index-default);
         display: block;
         cursor: default;
         content: " ";

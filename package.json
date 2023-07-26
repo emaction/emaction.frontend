@@ -1,4 +1,23 @@
 {
+  "name": "emaction",
+  "version": "1.0.0",
+  "private": false,
+  "description": "GitHub styled emoji reaction for blogs.",
+  "keywords": [
+    "emoji", "reaction"
+  ],
+  "license": "MIT",
+  "homepage": "https://emaction.cool",
+  "browser": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/emaction/emaction.frontend.git"
+  },
+  "author": {
+    "email": "contact@tiezhu.wang",
+    "name": "tiezhu.wang",
+    "url": "https://tiezhu.wang"
+  },
   "scripts": {
     "build": "rm -rf ./dist && mkdir ./dist && npx rollup -p @rollup/plugin-node-resolve index.js > ./dist/bundle.js"
   },
