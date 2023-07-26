@@ -1,5 +1,7 @@
 import { LitElement, css, html } from 'lit';
 
+const DEFAULT_EMOJIS = '👍,thumbs-up;👎,thumbs-down;😄,smile-face;🎉,party-popper;😕,confused-face;❤️,red-heart;🚀,rocket;👀,eyes;'
+
 export class EmojiReaction extends LitElement {
   static properties = {
     showAvailable: {attribute: false},
@@ -11,9 +13,10 @@ export class EmojiReaction extends LitElement {
   };
   // Define scoped styles right with your component, in plain CSS
   static styles = css`
+    /* default light */
     .container {
       --start-smile-border-color: #d0d7de;
-      --start-smile-border-color-hover: #bbb;
+      --start-smile-border-color-hover: #1f232826;
       --start-smile-bg-color: #f6f8fa;
       --start-smile-svg-fill-color: #656d76;
       --reaction-got-not-reacted-bg-color: #fff;
@@ -32,24 +35,25 @@ export class EmojiReaction extends LitElement {
       --reaction-available-emoji-z-index: 100;
       --reaction-available-mask-z-index: 80;
     }
+    /* default dark */
     .container-dark {
-      --start-smile-border-color: #d0d7de;
-      --start-smile-border-color-hover: #bbb;
-      --start-smile-bg-color: #f6f8fa;
-      --start-smile-svg-fill-color: #656d76;
-      --reaction-got-not-reacted-bg-color: #fff;
-      --reaction-got-not-reacted-bg-color-hover: #eaeef2;
-      --reaction-got-not-reacted-border-color: #d0d7de;
-      --reaction-got-not-reacted-text-color: #656d76;
-      --reaction-got-reacted-bg-color: #ddf4ff;
-      --reaction-got-reacted-bg-color-hover: #b6e3ff;
-      --reaction-got-reacted-border-color: #0969da;
-      --reaction-got-reacted-text-color: #0969da;
-      --reaction-available-popup-bg-color: #fff;
-      --reaction-available-popup-border-color: #d0d7de;
-      --reaction-available-popup-box-shadow: #8c959f33 0px 8px 24px 0px;
-      --reaction-available-emoji-reacted-bg-color: #ddf4ff;
-      --reaction-available-emoji-bg-color-hover: #f3f4f6;
+      --start-smile-border-color: #21262d;
+      --start-smile-border-color-hover: #8b949e;
+      --start-smile-bg-color: #30363d;
+      --start-smile-svg-fill-color: #7d8590;
+      --reaction-got-not-reacted-bg-color: #00000000;
+      --reaction-got-not-reacted-bg-color-hover: #21262d;
+      --reaction-got-not-reacted-border-color: #30363d;
+      --reaction-got-not-reacted-text-color: #7d8590;
+      --reaction-got-reacted-bg-color: #388bfd1a;
+      --reaction-got-reacted-bg-color-hover: #0c2d6b;
+      --reaction-got-reacted-border-color: #1f6feb;
+      --reaction-got-reacted-text-color: #2f81f7;
+      --reaction-available-popup-bg-color: #161b22;
+      --reaction-available-popup-border-color: #30363d;
+      --reaction-available-popup-box-shadow: #010409 0px 8px 24px 0px;
+      --reaction-available-emoji-reacted-bg-color: #388bfd1a;
+      --reaction-available-emoji-bg-color-hover: #30363d;
       --reaction-available-emoji-z-index: 100;
       --reaction-available-mask-z-index: 80;
     }
@@ -181,7 +185,7 @@ export class EmojiReaction extends LitElement {
   async initReactions() {
     let arr_string = this?.availableArrayString
     if (!arr_string) {
-      arr_string = '👍,thumbs-up;👎,thumbs-down;😄,smile-face;🎉,party-popper;😕,confused-face;❤️,red-heart;🚀,rocket;👀,eyes;'
+      arr_string = DEFAULT_EMOJIS
     }
     const arr = arr_string.split(';').map(val => {
       const [emoji, reaction_name] = val.split(',')
