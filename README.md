@@ -1,5 +1,8 @@
 # Easy to use GitHub Styled emoji reaction for Blogs.
 
+## Demo
+[https://emaction.cool](https://emaction.cool)
+
 ## Get started
 
 ### Via CDN (Recommended)
