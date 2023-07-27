@@ -7,7 +7,7 @@
 
 ### Via CDN (Recommended)
 ```
-<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.2/bundle.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.3/bundle.js"></script>
 ```
 
 ### NPM
