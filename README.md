@@ -9,6 +9,10 @@
 ```
 <script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.3/bundle.js"></script>
 ```
+then
+```
+<emoji-reaction></emoji-reaction>
+```
 
 ### NPM
 ```
