@@ -1,6 +1,6 @@
 import { LitElement, css, html } from 'lit';
 
-const DEFAULT_EMOJIS = '👍,thumbs-up;👎,thumbs-down;😄,smile-face;🎉,party-popper;😕,confused-face;❤️,red-heart;🚀,rocket;👀,eyes;'
+const DEFAULT_EMOJIS = '👍,thumbs-up;😄,smile-face;🎉,party-popper;😕,confused-face;❤️,red-heart;🚀,rocket;👀,eyes;👎,thumbs-down;'
 
 export class EmojiReaction extends LitElement {
   static properties = {
