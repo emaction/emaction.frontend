@@ -142,7 +142,7 @@ export class EmojiReaction extends LitElement {
       }
     </style>
     <!-- container -->
-    <div style="flex-wrap: nowrap; overflow-x: auto; max-width: 100%; display: flex; gap: 0.375rem;" class="${this?.theme === 'dark' || (this?.theme === 'system' && system_theme === 'dark') ? 'container-dark' : 'container'}">
+    <div style="flex-wrap: nowrap; max-width: 100%; display: flex; gap: 0.375rem;" class="${this?.theme === 'dark' || (this?.theme === 'system' && system_theme === 'dark') ? 'container-dark' : 'container'}">
       <!-- 灰色笑脸 -->
       <div style="position: relative; user-select: none;">
         <div id="start-smile" @click="${this._showAvailable}"
@@ -161,11 +161,13 @@ export class EmojiReaction extends LitElement {
         </div>
       </div>
       <!-- reactions got -->
-      ${this.availableReactions.map(item => html`
-        <div @click=${this._react} data-name="${item.reaction_name}" class="${item.meReacted ? 'reaction-got-reacted' : 'reaction-got-not-reacted'}" style="display: ${item?.count && item.count > 0 ? 'flex' : 'none'}; user-select: none; cursor: pointer; justify-content: center; align-items: center; border-radius: 108px; padding: 0 0.25rem; font-size: 0.75rem;">
-          <span style="pointer-events: none;">${item.emoji}</span><span style="padding:0 0.375rem; pointer-events: none;">${item.count}</span>
-        </div>
-      `)}
+      <div style="display: flex; overflow-x: auto; gap: 0.375rem;">
+        ${this.availableReactions.map(item => html`
+          <div @click=${this._react} data-name="${item.reaction_name}" class="${item.meReacted ? 'reaction-got-reacted' : 'reaction-got-not-reacted'}" style="display: ${item?.count && item.count > 0 ? 'flex' : 'none'}; user-select: none; cursor: pointer; justify-content: center; align-items: center; border-radius: 108px; padding: 0 0.25rem; font-size: 0.75rem;">
+            <span style="pointer-events: none;">${item.emoji}</span><span style="padding:0 0.375rem; pointer-events: none;">${item.count}</span>
+          </div>
+        `)}
+      </div>
     </div>
     `;
   }
