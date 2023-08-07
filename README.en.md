@@ -11,7 +11,7 @@ You can add emoji reaction functionality to your page, with just two lines of co
 
 ### Via CDN (Recommended)
 ```
-<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.7/bundle.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.8/bundle.js"></script>
 ```
 then
 ```
