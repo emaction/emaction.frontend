@@ -11,12 +11,13 @@ You can add emoji reaction functionality to your page, with just two lines of co
 
 ### Via CDN (Recommended)
 ```
-<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.8/bundle.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
 ```
 then
 ```
 <emoji-reaction></emoji-reaction>
 ```
+That's it!
 
 ### NPM
 ```
@@ -67,11 +68,5 @@ You can specify dark/light mode through the `theme` custom property, It supports
 ### Custom backend
 You can also reference [emaction.backend](https://github.com/emaction/emaction.backend) to build your own backend to save data, then specify the API address through the `endpoint` property.
 
-### Custom page id
-The page id is used to identify the current page. Data with the same page id will remain consistent. Generally you don't need to specify the page id yourself, because emaction will follow the canonical meta to find the canonical URL for the current content. If you do need to specify the page id, you can do so through the `reactionTargetId` attribute.
-
-## TODO
-
-- [ ] GitHub Actions to publish npm automatically.
-- [ ] GitHub Actions to publish dist repo automatically.
-- [ ] Cool Badges.
+### Custom target id
+The target id is used to identify what the reaction is referring to (usually the page it is on). Typically you do not need to specify a target id, because emaction will look for the canonical meta tag to determine the canonical URL for the current page content. If you do need to customize the target id (for example, to add reactions for each individual comment on a page), you can specify it using the reactionTargetId attribute.

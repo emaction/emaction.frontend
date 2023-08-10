@@ -18,12 +18,13 @@ emaction 是一个标准 web component，可以用在任何 html 页面中。
 
 ### 通过 CDN 引入（推荐）
 ```
-<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.8/bundle.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
 ```
 然后
 ```
 <emoji-reaction></emoji-reaction>
 ```
+就 Ok 啦！
 
 ### 通过 NPM 使用
 ```
@@ -81,5 +82,5 @@ npm install emaction
 
 你可以参考 [这个](https://github.com/emaction/emaction.backend) 后端仓库，来构建自己的后端服务，以存储自己的数据，并通过 `endpoint` 属性来指定后端接口地址。
 
-### 自定义页面 id
-页面 id 是用来标识当前页面的 id，同一个 id 的多个页面，共享一份 reaction 数据。一般情况下，你不需要指定页面 id，因为 emaction 会查找 canonical meta 来确定当前内容对应的规范链接。如果你确实需要自定义页面 id，可以通过属性 `reactionTargetId`来指定。
+### 自定义目标 id
+目标 id 用来标识 reaction 所针对的目标（一般是所在页面）。一般情况下，你不需要指定目标 id，因为 emaction 会查找 canonical meta 来确定当前页面内容对应的规范链接。如果你确实需要自定义目标 id（比如想为页面内每个评论都添加 reaction），可以通过属性 `reactionTargetId`来指定。
