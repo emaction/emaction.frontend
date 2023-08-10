@@ -69,4 +69,4 @@ You can specify dark/light mode through the `theme` custom property, It supports
 You can also reference [emaction.backend](https://github.com/emaction/emaction.backend) to build your own backend to save data, then specify the API address through the `endpoint` property.
 
 ### Custom target id
-The target id is used to identify what the reaction is referring to (usually the page it is on). Typically you do not need to specify a target id, because emaction will look for the canonical meta tag to determine the canonical URL for the current page content. If you do need to customize the target id (for example, to add reactions for each individual comment on a page), you can specify it using the reactionTargetId attribute.
+The target id is used to identify what the reaction is referring to (usually the page it is on). Typically you do not need to specify a target id, because emaction will look for the canonical meta tag to determine the canonical URL for the current page content. If you do need to customize the target id (for example, to add reactions for each individual comment on a page), you can specify it using the `reactionTargetId` attribute.
