@@ -18,7 +18,7 @@ emaction 是一个标准 web component，可以用在任何 html 页面中。
 
 ### 通过 CDN 引入（推荐）
 ```
-<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.10/bundle.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.11/bundle.js"></script>
 ```
 然后
 ```
